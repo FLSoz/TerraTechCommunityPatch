@@ -72,6 +72,7 @@
     <Compile Include="patches\OrthoRotPatch.cs" />
     <Compile Include="patches\SpreadFix.cs" />
     <Compile Include="patches\SubscribedModsPatch.cs" />
+    <Compile Include="patches\WhisperProps.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
