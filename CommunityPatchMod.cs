@@ -12,6 +12,7 @@ namespace CommunityPatch
     {
         const string HarmonyID = "com.flsoz.ttmods.communitypatch";
         internal static Harmony harmony = new Harmony(HarmonyID);
+        internal static BindingFlags InstanceFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
 
         internal static bool PatchedModLoading = false;
 

@@ -58,6 +58,9 @@
       <HintPath>..\..\..\Steam\steamapps\common\TerraTech\TerraTechWin64_Data\Managed\UnityEngine.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="UnityEngine.AnimationModule">
+      <HintPath>..\..\..\Steam\steamapps\common\TerraTech\TerraTechWin64_Data\Managed\UnityEngine.AnimationModule.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>..\..\..\Steam\steamapps\common\TerraTech\TerraTechWin64_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
       <Private>False</Private>
@@ -69,6 +72,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommunityPatchMod.cs" />
+    <Compile Include="patches\FindCorpPatch.cs" />
+    <Compile Include="patches\ManSceneryAnimationPatch.cs" />
     <Compile Include="patches\OrthoRotPatch.cs" />
     <Compile Include="patches\SpreadFix.cs" />
     <Compile Include="patches\SubscribedModsPatch.cs" />
