@@ -74,6 +74,7 @@
     <Compile Include="CommunityPatchMod.cs" />
     <Compile Include="patches\FindCorpPatch.cs" />
     <Compile Include="patches\ManSceneryAnimationPatch.cs" />
+    <Compile Include="patches\ModuleVariableMassPatch.cs" />
     <Compile Include="patches\OrthoRotPatch.cs" />
     <Compile Include="patches\SpreadFix.cs" />
     <Compile Include="patches\SubscribedModsPatch.cs" />
@@ -93,9 +94,7 @@ echo !modpath!
 
 for %25%25I in (*) do (
   if not "%25%25I" =="$(TargetFileName)" (
-    if not "%25%25I" == "LogManager.dll" (
-      del "%25%25I"
-    )
+    del "%25%25I"
   )
 )
 
@@ -108,18 +107,7 @@ set e=$(TargetDir)..\&gt;nul
 
 echo Copying to game
 xcopy /S /Y /R "$(TargetFileName)" !modpath!
-if not "$(TargetFileName)" == "LogManager.dll" (
-  xcopy /S /Y /R "LogManager.dll" !modpath!
-)
-
 echo Copying to Unity
-xcopy /S /Y /R "$(TargetFileName)" !unitypath!
-if not "$(TargetFileName)" == "LogManager.dll" (
-  xcopy /S /Y /R "LogManager.dll" !unitypath!
-)
-
-if not "$(TargetFileName)" == "LogManager.dll" (
-  del "LogManager.dll"
-)</PostBuildEvent>
+xcopy /S /Y /R "$(TargetFileName)" !unitypath!</PostBuildEvent>
   </PropertyGroup>
 </Project>
