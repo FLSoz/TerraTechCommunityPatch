@@ -72,10 +72,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommunityPatchMod.cs" />
+    <Compile Include="patches\DeathExplosiondamagePatch.cs" />
+    <Compile Include="patches\DeathExplosionOverridePatch.cs" />
     <Compile Include="patches\FindCorpPatch.cs" />
     <Compile Include="patches\ManSceneryAnimationPatch.cs" />
     <Compile Include="patches\ModuleVariableMassPatch.cs" />
     <Compile Include="patches\OrthoRotPatch.cs" />
+    <Compile Include="patches\ReparseJSONPatch.cs" />
     <Compile Include="patches\SpreadFix.cs" />
     <Compile Include="patches\SubscribedModsPatch.cs" />
     <Compile Include="patches\WhisperProps.cs" />

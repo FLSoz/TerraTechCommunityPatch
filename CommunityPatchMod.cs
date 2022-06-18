@@ -33,9 +33,9 @@ namespace CommunityPatch
             if (!PatchedModLoading)
             {
                 // We only need to patch this once, since workshop page searching only happens once per game session
-                MethodInfo targetMethod = typeof(ManMods).GetMethod("OnSteamModsFetchComplete", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public, null, new Type[] { typeof(SteamDownloadData) }, null);
+                MethodInfo ShouldReadFromRawJSONMethod = typeof(ManMods).GetMethod("OnSteamModsFetchComplete", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public, null, new Type[] { typeof(SteamDownloadData) }, null);
                 MethodInfo replacementMethod = typeof(SubscribedModsPatch).GetMethod("Prefix", BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public, null, new Type[] { typeof(SteamDownloadData) }, null);
-                harmony.Patch(targetMethod, prefix: new HarmonyMethod(replacementMethod));
+                harmony.Patch(ShouldReadFromRawJSONMethod, prefix: new HarmonyMethod(replacementMethod));
 
                 Dictionary<string, ModContainer> mods = (Dictionary<string, ModContainer>)m_Mods.GetValue(Singleton.Manager<ManMods>.inst);
                 if (mods.Count >= Constants.kNumUGCResultsPerPage)
