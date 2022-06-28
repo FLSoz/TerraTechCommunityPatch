@@ -78,6 +78,7 @@
     <Compile Include="patches\ManSceneryAnimationPatch.cs" />
     <Compile Include="patches\ModuleVariableMassPatch.cs" />
     <Compile Include="patches\OrthoRotPatch.cs" />
+    <Compile Include="patches\ModSessionPatch.cs" />
     <Compile Include="patches\ReparseJSONPatch.cs" />
     <Compile Include="patches\SpreadFix.cs" />
     <Compile Include="patches\SubscribedModsPatch.cs" />
