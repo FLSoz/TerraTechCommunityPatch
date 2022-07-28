@@ -14,9 +14,9 @@ namespace CommunityPatch.patches
     class ReparseJSONPatch
     {
 		[HarmonyPrefix]
-        public static void Prefix(ref ManMods __instance)
+        public static void Prefix(ManMods __instance)
         {
-			d.Log("[Mods] Purging outdated modded blocks");
+			Console.WriteLine("[Mods] Purging outdated modded blocks");
 			Singleton.Manager<RecipeManager>.inst.RemoveCustomBlockRecipes();
 			BlockUnlockTable blockUnlockTable = Singleton.Manager<ManLicenses>.inst.GetBlockUnlockTable();
 			blockUnlockTable.RemoveModdedBlocks();
@@ -48,7 +48,7 @@ namespace CommunityPatch.patches
 		internal static readonly MethodInfo GetDelegates = typeof(ComponentPool).GetMethod("GetDelegates", BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
 
 		[HarmonyPrefix]
-		public static bool Prefix(ref ManMods __instance)
+		public static bool Prefix(ManMods __instance)
 		{
 			foreach (TankBlock tankBlock in UnityEngine.Object.FindObjectsOfType<TankBlock>())
 			{

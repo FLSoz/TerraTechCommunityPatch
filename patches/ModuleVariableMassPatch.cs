@@ -1,13 +1,10 @@
 ﻿using HarmonyLib;
-using System;
 using System.Reflection;
-using System.Reflection.Emit;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace CommunityPatch.patches
 {
-    [HarmonyPatch(typeof(ModuleVariableMass), "SetMassCubeScale")]
     internal static class ModuleVariableMassPatch
     {
         internal static BindingFlags InstanceFlags = BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance;
@@ -16,8 +13,7 @@ namespace CommunityPatch.patches
         internal static FieldInfo m_CurrentFulfillment = typeof(ModuleVariableMass).GetField("m_CurrentFulfillment", InstanceFlags);
         internal static FieldInfo m_MassRange = typeof(ModuleVariableMass).GetField("m_MassRange", InstanceFlags);
 
-        [HarmonyPostfix]
-        internal static void Postfix(ref ModuleVariableMass __instance)
+        internal static void Postfix(ModuleVariableMass __instance)
         {
             TankBlock block = __instance.block;
             Dictionary<TankBlock.MassCategoryType, double> additionalMass = (Dictionary<TankBlock.MassCategoryType, double>)m_AdditionalMassCategories.GetValue(block);

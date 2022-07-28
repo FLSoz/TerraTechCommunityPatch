@@ -13,7 +13,7 @@ using System.Reflection.Emit;
 namespace CommunityPatch.patches
 {
     [HarmonyPatch(typeof(ModuleDamage), "Explode")]
-    class DeathExplosiondamagePatch
+    class DeathExplosionDamagePatch
     {
         [HarmonyTranspiler]
         public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator ilgen)
@@ -43,7 +43,7 @@ namespace CommunityPatch.patches
                     if ((Label)instruction.operand == returnLabel)
                     {
                         inLastIf = true;
-                        Console.WriteLine("Properly found skip label");
+                        Console.WriteLine("[CommunityPatch] Properly found skip label");
                     }
                     patchedInstructions.Add(instruction);
                 }

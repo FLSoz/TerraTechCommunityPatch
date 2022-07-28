@@ -21,7 +21,7 @@ namespace CommunityPatch.patches
 
         internal static void CheckForMoreSteamMods(uint page)
         {
-            d.Log($"[CommunityPatch] Attempting to fetch page {page} of subscribed mods");
+            Console.WriteLine($"[CommunityPatch] Attempting to fetch page {page} of subscribed mods");
             ManMods manMods = Singleton.Manager<ManMods>.inst;
             m_WaitingOnWorkshopCheck.SetValue(manMods, false);
             SteamDownloadData nextData = SteamDownloadData.Create(SteamItemCategory.Mods, page);
@@ -32,7 +32,7 @@ namespace CommunityPatch.patches
         internal static bool Prefix(SteamDownloadData data)
         {
             // We're assuming Workshop is enabled if this has been called
-            d.Log("[CommunityPatch] Received query resonse from Steam");
+            Console.WriteLine("[CommunityPatch] Received query resonse from Steam");
             if (data.HasAnyItems)
             {
                 if (data.m_Items.Count >= Constants.kNumUGCResultsPerPage)
@@ -51,11 +51,11 @@ namespace CommunityPatch.patches
                     CheckForMoreSteamMods(currPage + 1);
                     return false;
                 }
-                d.Log($"[CommunityPatch] Found {data.m_Items.Count}, assuming there's no more");
+                Console.WriteLine($"[CommunityPatch] Found {data.m_Items.Count}, assuming there's no more");
             }
             else
             {
-                d.Log("[CommunityPatch] NO mods found");
+                Console.WriteLine("[CommunityPatch] NO mods found");
             }
             return true;
         }

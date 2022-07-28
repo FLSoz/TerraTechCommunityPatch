@@ -9,7 +9,6 @@ namespace CommunityPatch.patches
     public static class PatchLobbyCreation
     {
         internal static FieldInfo m_CurrentLobbySession = typeof(ManMods).GetField("m_CurrentLobbySession", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
-        internal static FieldInfo m_CurrentSession = typeof(ManMods).GetField("m_CurrentSession", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
 
         internal static void DeepCopy<T1, T2>(Dictionary<T1, T2> source, Dictionary<T1, T2> target)
         {
@@ -26,10 +25,10 @@ namespace CommunityPatch.patches
         public static void Postfix()
         {
             ModSessionInfo session = (ModSessionInfo)m_CurrentLobbySession.GetValue(Singleton.Manager<ManMods>.inst);
-            ModSessionInfo currentSession = (ModSessionInfo)m_CurrentSession.GetValue(Singleton.Manager<ManMods>.inst);
+            ModSessionInfo currentSession = (ModSessionInfo) CommunityPatchMod.m_CurrentSession.GetValue(Singleton.Manager<ManMods>.inst);
             if (session != null && currentSession != null)
             {
-                d.Log("Patched MP lobby loading");
+                Console.WriteLine("[CommunityPatch] Patched MP lobby loading");
 
                 Dictionary<int, string> currentCorpIDs = currentSession.CorpIDs;
                 Dictionary<int, string> targetcorpIDs = session.CorpIDs;

@@ -7,7 +7,6 @@ using UnityEngine;
 
 namespace CommunityPatch.patches
 {
-	[HarmonyPatch(typeof(ManSceneryAnimation), "Update")]
     internal static class ManSceneryAnimationPatch
     {
 		internal static FieldInfo m_PlayingAnimations = typeof(ManSceneryAnimation).GetField("m_PlayingAnimations", CommunityPatchMod.InstanceFlags);
@@ -18,8 +17,7 @@ namespace CommunityPatch.patches
 		internal static FieldInfo time = null;
 		internal static FieldInfo animFinishedEvent = null;
 
-		[HarmonyPrefix]
-        internal static bool Prefix(ref ManSceneryAnimation __instance)
+        internal static bool Prefix(ManSceneryAnimation __instance)
 		{
 			AnimationClip[] animations = (AnimationClip[]) m_Animations.GetValue(__instance);
 			IList playingAnimations = (IList) m_PlayingAnimations.GetValue(__instance);
@@ -99,7 +97,6 @@ namespace CommunityPatch.patches
 			return false;
 		}
 
-		[HarmonyFinalizer]
 		internal static Exception Finalizer(Exception __exception)
 		{
 			if (__exception != null)

@@ -5,13 +5,11 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace CommunityPatch.patches
 {
-    [HarmonyPatch(typeof(ManMods), "FindCorp")]
-    [HarmonyPatch(new Type[] { typeof(string) })]
-    class FindCorpPatch
+    internal static class FindCorpPatch
     {
         internal static FieldInfo m_Mods = typeof(ManMods).GetField("m_Mods", CommunityPatchMod.InstanceFlags);
 
-        public static bool Prefix(ref ManMods __instance, ref string corpID, ref ModdedCorpDefinition __result)
+        internal static bool Prefix(ManMods __instance, string corpID, ref ModdedCorpDefinition __result)
         {
             Dictionary<string, ModContainer> mods = (Dictionary<string, ModContainer>)m_Mods.GetValue(__instance);
             foreach (ModContainer modContainer in mods.Values)

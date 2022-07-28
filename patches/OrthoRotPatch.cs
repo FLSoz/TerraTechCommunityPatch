@@ -91,7 +91,7 @@ namespace CommunityPatch.patches
                             }
                             packedMap.Add(packed, rot);
                             packedToQuaternionMap.Add(packed, quaternion);
-                            d.Log($"[CommunityPatch] Processing Packed id {packed} (isomorphic to {rootPacked}), <{x} {y} {z}>, {quaternion} as rot {(int)rot}");
+                            Console.WriteLine($"[CommunityPatch] Processing Packed id {packed} (isomorphic to {rootPacked}), <{x} {y} {z}>, {quaternion} as rot {(int)rot}");
                         }
                     }
                 }
@@ -116,7 +116,7 @@ namespace CommunityPatch.patches
         internal static class PatchToEulers
         {
             [HarmonyPrefix]
-            public static bool Prefix(ref OrthoRotation __instance, ref Vector3 __result)
+            public static bool Prefix(OrthoRotation __instance, ref Vector3 __result)
             {
                 if (__instance.rot == (OrthoRotation.r) 24)
                 {
@@ -142,13 +142,13 @@ namespace CommunityPatch.patches
         internal static class PatchVector3Constructor
         {
             [HarmonyPrefix]
-            public static bool Prefix(ref OrthoRotation __instance, Vector3 eulers)
+            public static bool Prefix(OrthoRotation __instance, Vector3 eulers)
             {
                 IntVector3 baseCheck = eulers / 90.0f;
                 int packed = ((3 & baseCheck.x) << 4) | ((3 & baseCheck.y) << 2) | (3 & baseCheck.z);
                 packedMap.TryGetValue(packed, out OrthoRotation.r rotEnum);
                 __instance = new OrthoRotation(rotEnum);
-                // d.Log($"Vector3 Constructor: Got rotation for eulers {eulers} (packed {packed}): {(int)rotEnum} => set as {__instance.rot} ({(int)__instance.rot})");
+                // Console.WriteLine($"Vector3 Constructor: Got rotation for eulers {eulers} (packed {packed}): {(int)rotEnum} => set as {__instance.rot} ({(int)__instance.rot})");
                 return false;
             }
         }
@@ -157,11 +157,11 @@ namespace CommunityPatch.patches
         internal static class PatchQuaternionConstructor
         {
             [HarmonyPrefix]
-            public static bool Prefix(ref OrthoRotation __instance, Quaternion rotation)
+            public static bool Prefix(OrthoRotation __instance, Quaternion rotation)
             {
                 quaternionMap.TryGetValue(rotation, out OrthoRotation.r rotEnum);
                 __instance = new OrthoRotation(rotEnum);
-                // d.Log($"Quaternion Constructor: Got rotation for quaternion {rotation}: {(int)rotEnum} => set as {__instance.rot} ({(int)__instance.rot})");
+                // Console.WriteLine($"Quaternion Constructor: Got rotation for quaternion {rotation}: {(int)rotEnum} => set as {__instance.rot} ({(int)__instance.rot})");
                 return false;
             }
         }
@@ -170,11 +170,11 @@ namespace CommunityPatch.patches
         internal static class PatchIntConstructor
         {
             [HarmonyPrefix]
-            public static bool Prefix(ref OrthoRotation __instance, int packed)
+            public static bool Prefix(OrthoRotation __instance, int packed)
             {
                 packedMap.TryGetValue(packed, out OrthoRotation.r rotEnum);
                 __instance = new OrthoRotation(rotEnum);
-                // d.Log($"Packed Constructor: Got rotation for packed {packed}: {(int)rotEnum} => set as {__instance.rot} ({(int) __instance.rot})");
+                // Console.WriteLine($"Packed Constructor: Got rotation for packed {packed}: {(int)rotEnum} => set as {__instance.rot} ({(int) __instance.rot})");
                 return false;
             }
         }

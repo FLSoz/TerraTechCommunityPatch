@@ -46,6 +46,10 @@
       <HintPath>..\..\..\Steam\steamapps\common\TerraTech\TerraTechWin64_Data\Managed\DebugWrapper.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Steam\steamapps\common\TerraTech\TerraTechWin64_Data\Managed\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -72,7 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommunityPatchMod.cs" />
-    <Compile Include="patches\DeathExplosiondamagePatch.cs" />
+    <Compile Include="patches\DeathExplosionDamagePatch.cs" />
     <Compile Include="patches\DeathExplosionOverridePatch.cs" />
     <Compile Include="patches\FindCorpPatch.cs" />
     <Compile Include="patches\ManSceneryAnimationPatch.cs" />
@@ -85,7 +89,10 @@
     <Compile Include="patches\WhisperProps.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="ModuleLoaders\" />
+    <Folder Include="Modules\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>del *.pdb

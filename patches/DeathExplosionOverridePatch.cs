@@ -6,23 +6,17 @@ using System.Reflection.Emit;
 
 namespace CommunityPatch.patches
 {
-    [HarmonyPatch(typeof(ManMods), "InjectModdedBlocks")]
     public static class DeathExplosionOverridePatch
     {
         public static void AddDeathExplosionIfAbsent(ModuleDamage moduleDamage)
         {
             if (moduleDamage.deathExplosion == null)
             {
-                Console.WriteLine($"DEATH EXPLOSION OVERRIDEN FOR {moduleDamage.name}");
+                Console.WriteLine($"[CommunityPatch] DEATH EXPLOSION OVERRIDEN FOR {moduleDamage.name}");
                 moduleDamage.deathExplosion = Singleton.Manager<ManMods>.inst.m_DefaultBlockExplosion;
-            }
-            else
-            {
-                Console.WriteLine($"DEATH EXPLOSION SAVED FOR {moduleDamage.name}");
             }
         }
 
-        [HarmonyTranspiler]
         public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator ilgen)
         {
             List<CodeInstruction> originalInstructions = new List<CodeInstruction>(instructions);
