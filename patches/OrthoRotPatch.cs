@@ -91,7 +91,7 @@ namespace CommunityPatch.patches
                             }
                             packedMap.Add(packed, rot);
                             packedToQuaternionMap.Add(packed, quaternion);
-                            Console.WriteLine($"[CommunityPatch] Processing Packed id {packed} (isomorphic to {rootPacked}), <{x} {y} {z}>, {quaternion} as rot {(int)rot}");
+                            CommunityPatchMod.logger.Trace($"Processing Packed id {packed} (isomorphic to {rootPacked}), <{x} {y} {z}>, {quaternion} as rot {(int)rot}");
                         }
                     }
                 }
@@ -103,7 +103,7 @@ namespace CommunityPatch.patches
                     {
                         Quaternion quaternion = pair.Value;
                         Quaternion rootQuaternion = packedToQuaternionMap[rootPacked];
-                        d.Assert(rootQuaternion.eulerAngles == quaternion.eulerAngles, $"[CommunityPatch] packed value {packed} has quaternion of {quaternion} ({quaternion.eulerAngles}), but root packed value of {rootPacked} has quaternion of {rootQuaternion} ({rootQuaternion.eulerAngles})");
+                        d.Assert(rootQuaternion.eulerAngles == quaternion.eulerAngles, $"packed value {packed} has quaternion of {quaternion} ({quaternion.eulerAngles}), but root packed value of {rootPacked} has quaternion of {rootQuaternion} ({rootQuaternion.eulerAngles})");
                     }
                 }
 
@@ -148,7 +148,7 @@ namespace CommunityPatch.patches
                 int packed = ((3 & baseCheck.x) << 4) | ((3 & baseCheck.y) << 2) | (3 & baseCheck.z);
                 packedMap.TryGetValue(packed, out OrthoRotation.r rotEnum);
                 __instance = new OrthoRotation(rotEnum);
-                // Console.WriteLine($"Vector3 Constructor: Got rotation for eulers {eulers} (packed {packed}): {(int)rotEnum} => set as {__instance.rot} ({(int)__instance.rot})");
+                // CommunityPatchMod.logger.Trace($"Vector3 Constructor: Got rotation for eulers {eulers} (packed {packed}): {(int)rotEnum} => set as {__instance.rot} ({(int)__instance.rot})");
                 return false;
             }
         }
@@ -161,7 +161,7 @@ namespace CommunityPatch.patches
             {
                 quaternionMap.TryGetValue(rotation, out OrthoRotation.r rotEnum);
                 __instance = new OrthoRotation(rotEnum);
-                // Console.WriteLine($"Quaternion Constructor: Got rotation for quaternion {rotation}: {(int)rotEnum} => set as {__instance.rot} ({(int)__instance.rot})");
+                // CommunityPatchMod.logger.Trace($"Quaternion Constructor: Got rotation for quaternion {rotation}: {(int)rotEnum} => set as {__instance.rot} ({(int)__instance.rot})");
                 return false;
             }
         }
@@ -174,7 +174,7 @@ namespace CommunityPatch.patches
             {
                 packedMap.TryGetValue(packed, out OrthoRotation.r rotEnum);
                 __instance = new OrthoRotation(rotEnum);
-                // Console.WriteLine($"Packed Constructor: Got rotation for packed {packed}: {(int)rotEnum} => set as {__instance.rot} ({(int) __instance.rot})");
+                // CommunityPatchMod.logger.Trace($"Packed Constructor: Got rotation for packed {packed}: {(int)rotEnum} => set as {__instance.rot} ({(int) __instance.rot})");
                 return false;
             }
         }

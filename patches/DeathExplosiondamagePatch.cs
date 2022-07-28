@@ -43,7 +43,7 @@ namespace CommunityPatch.patches
                     if ((Label)instruction.operand == returnLabel)
                     {
                         inLastIf = true;
-                        Console.WriteLine("[CommunityPatch] Properly found skip label");
+                        CommunityPatchMod.logger.Debug("Properly found skip label");
                     }
                     patchedInstructions.Add(instruction);
                 }

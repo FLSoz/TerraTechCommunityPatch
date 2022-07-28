@@ -7,7 +7,7 @@ namespace CommunityPatch.patches
 {
     internal static class FindCorpPatch
     {
-        internal static FieldInfo m_Mods = typeof(ManMods).GetField("m_Mods", CommunityPatchMod.InstanceFlags);
+        internal static FieldInfo m_Mods = AccessTools.Field(typeof(ManMods), "m_Mods");
 
         internal static bool Prefix(ManMods __instance, string corpID, ref ModdedCorpDefinition __result)
         {

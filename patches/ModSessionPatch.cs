@@ -28,7 +28,7 @@ namespace CommunityPatch.patches
             ModSessionInfo currentSession = (ModSessionInfo) CommunityPatchMod.m_CurrentSession.GetValue(Singleton.Manager<ManMods>.inst);
             if (session != null && currentSession != null)
             {
-                Console.WriteLine("[CommunityPatch] Patched MP lobby loading");
+                CommunityPatchMod.logger.Info("Patched MP lobby loading");
 
                 Dictionary<int, string> currentCorpIDs = currentSession.CorpIDs;
                 Dictionary<int, string> targetcorpIDs = session.CorpIDs;

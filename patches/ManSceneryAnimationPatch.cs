@@ -9,8 +9,8 @@ namespace CommunityPatch.patches
 {
     internal static class ManSceneryAnimationPatch
     {
-		internal static FieldInfo m_PlayingAnimations = typeof(ManSceneryAnimation).GetField("m_PlayingAnimations", CommunityPatchMod.InstanceFlags);
-		internal static FieldInfo m_Animations = typeof(ManSceneryAnimation).GetField("m_Animations", CommunityPatchMod.InstanceFlags);
+		internal static FieldInfo m_PlayingAnimations = AccessTools.Field(typeof(ManSceneryAnimation), "m_PlayingAnimations");
+		internal static FieldInfo m_Animations = AccessTools.Field(typeof(ManSceneryAnimation), "m_Animations");
 
 		internal static FieldInfo targetGO = null;
 		internal static FieldInfo animType = null;
@@ -33,11 +33,11 @@ namespace CommunityPatch.patches
 					// We assume all the fields are fetched successfully, or none of them are, and we throw an exception
 					if (targetGO == null)
 					{
-						Console.WriteLine("FETCHING PATCH REFLECTION");
-						targetGO = firstAnimation.GetType().GetField("targetGO", CommunityPatchMod.InstanceFlags);
-						animType = firstAnimation.GetType().GetField("animType", CommunityPatchMod.InstanceFlags);
-						time = firstAnimation.GetType().GetField("time", CommunityPatchMod.InstanceFlags);
-						animFinishedEvent = firstAnimation.GetType().GetField("animFinishedEvent", CommunityPatchMod.InstanceFlags);
+						CommunityPatchMod.logger.Info("FETCHING PATCH REFLECTION");
+						targetGO = AccessTools.Field(firstAnimation.GetType(), "targetGO");
+						animType = AccessTools.Field(firstAnimation.GetType(), "animType");
+						time = AccessTools.Field(firstAnimation.GetType(), "time");
+						animFinishedEvent = AccessTools.Field(firstAnimation.GetType(), "animFinishedEvent");
 					}
 
 					for (int i = playingAnimations.Count - 1; i >= 0; i--)
@@ -78,20 +78,20 @@ namespace CommunityPatch.patches
 							}
 							else
 							{
-								Console.WriteLine("NULL ANIMATIONCLIP FOUND");
+								CommunityPatchMod.logger.Warn("NULL ANIMATIONCLIP FOUND");
 								playingAnimations.RemoveAt(i);
 							}
 						}
 						else
 						{
-							Console.WriteLine($"Animation of INVALID type {animIndex}");
+							CommunityPatchMod.logger.Warn($"Animation of INVALID type {animIndex}");
 							playingAnimations.RemoveAt(i);
 						}
 					}
 				}
 				else
                 {
-					Console.WriteLine("NULL ANIMATION CLIPS");
+					CommunityPatchMod.logger.Warn("NULL ANIMATION CLIPS");
                 }
 			}
 			return false;
@@ -101,8 +101,8 @@ namespace CommunityPatch.patches
 		{
 			if (__exception != null)
 			{
-				Console.WriteLine("ERROR in ManSceneryAnimation");
-				Console.WriteLine(__exception);
+				CommunityPatchMod.logger.Error("ERROR in ManSceneryAnimation");
+				CommunityPatchMod.logger.Error(__exception);
 			}
 			return null;
 		}

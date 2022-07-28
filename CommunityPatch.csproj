@@ -76,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommunityPatchMod.cs" />
+    <Compile Include="Logger.cs" />
     <Compile Include="patches\DeathExplosionDamagePatch.cs" />
     <Compile Include="patches\DeathExplosionOverridePatch.cs" />
     <Compile Include="patches\FindCorpPatch.cs" />

@@ -12,7 +12,7 @@ namespace CommunityPatch.patches
         {
             if (moduleDamage.deathExplosion == null)
             {
-                Console.WriteLine($"[CommunityPatch] DEATH EXPLOSION OVERRIDEN FOR {moduleDamage.name}");
+                CommunityPatchMod.logger.Trace($"DEATH EXPLOSION OVERRIDEN FOR {moduleDamage.name}");
                 moduleDamage.deathExplosion = Singleton.Manager<ManMods>.inst.m_DefaultBlockExplosion;
             }
         }

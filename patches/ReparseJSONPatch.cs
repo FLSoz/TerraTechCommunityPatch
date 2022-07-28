@@ -16,7 +16,7 @@ namespace CommunityPatch.patches
 		[HarmonyPrefix]
         public static void Prefix(ManMods __instance)
         {
-			Console.WriteLine("[Mods] Purging outdated modded blocks");
+			CommunityPatchMod.logger.Info("Purging outdated modded blocks");
 			Singleton.Manager<RecipeManager>.inst.RemoveCustomBlockRecipes();
 			BlockUnlockTable blockUnlockTable = Singleton.Manager<ManLicenses>.inst.GetBlockUnlockTable();
 			blockUnlockTable.RemoveModdedBlocks();

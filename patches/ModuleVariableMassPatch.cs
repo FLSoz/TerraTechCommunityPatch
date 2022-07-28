@@ -8,10 +8,10 @@ namespace CommunityPatch.patches
     internal static class ModuleVariableMassPatch
     {
         internal static BindingFlags InstanceFlags = BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance;
-        internal static FieldInfo m_AdditionalMassCategories = typeof(TankBlock).GetField("m_AdditionalMassCategories", InstanceFlags);
-        internal static FieldInfo m_DefaultMasss = typeof(TankBlock).GetField("m_DefaultMass", InstanceFlags);
-        internal static FieldInfo m_CurrentFulfillment = typeof(ModuleVariableMass).GetField("m_CurrentFulfillment", InstanceFlags);
-        internal static FieldInfo m_MassRange = typeof(ModuleVariableMass).GetField("m_MassRange", InstanceFlags);
+        internal static FieldInfo m_AdditionalMassCategories = AccessTools.Field(typeof(TankBlock), "m_AdditionalMassCategories");
+        internal static FieldInfo m_DefaultMasss = AccessTools.Field(typeof(TankBlock), "m_DefaultMass");
+        internal static FieldInfo m_CurrentFulfillment = AccessTools.Field(typeof(ModuleVariableMass), "m_CurrentFulfillment");
+        internal static FieldInfo m_MassRange = AccessTools.Field(typeof(ModuleVariableMass), "m_MassRange");
 
         internal static void Postfix(ModuleVariableMass __instance)
         {

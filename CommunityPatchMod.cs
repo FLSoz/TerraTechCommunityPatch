@@ -12,8 +12,9 @@ namespace CommunityPatch
     {
         const string HarmonyID = "com.flsoz.ttmods.communitypatch";
         internal static Harmony harmony = new Harmony(HarmonyID);
-        internal static BindingFlags InstanceFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
-        internal static BindingFlags StaticFlags = BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic;
+
+        internal static Logger logger;
+
         const int CurrentStable = 9014917;
 
         internal static bool PatchedModLoading = false;
@@ -30,11 +31,17 @@ namespace CommunityPatch
         public void ManagedEarlyInit()
         {
             int currentBuild = SteamApps.GetAppBuildId();
-            Console.WriteLine("[CommunityPatch] ManagedEarlyInit");
-            Console.WriteLine($"[CommunityPatch] Current Build: {currentBuild}");
+            logger.Info("ManagedEarlyInit");
+            logger.Info($"Current Build: {currentBuild}");
 
             IsUnstableBuild = currentBuild != CurrentStable;
             OrthoRotPatch.SetupOrthoRotMaps();
+
+            if (logger == null)
+            {
+                logger = new Logger("CommunityPatch");
+                logger.Info("Logger is setup");
+            }
         }
 
         public override void EarlyInit()
@@ -75,7 +82,7 @@ namespace CommunityPatch
 
         internal void PatchForStable()
         {
-            Console.WriteLine("[CommunityPatch] Patching for stable");
+            logger.Info("Patching for stable");
             // bullet spread fix
             MethodInfo fire = AccessTools.Method(typeof(Projectile), "Fire");
             harmony.Patch(fire, postfix: new HarmonyMethod(AccessTools.Method(typeof(SpreadFix), "Postfix")));
