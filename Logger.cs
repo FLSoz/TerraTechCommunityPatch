@@ -17,12 +17,14 @@ namespace CommunityPatch
 
         internal struct TargetConfig
         {
+            public string filename;
             public string path;
             public string layout;
             public bool keepOldFiles;
 
-            internal TargetConfig(string path = null, string layout = null, bool keepOldFiles = false)
+            internal TargetConfig(string filename = null, string path = null, string layout = null, bool keepOldFiles = false)
             {
+                this.filename = filename;
                 this.path = path;
                 this.layout = layout;
                 this.keepOldFiles = keepOldFiles;
@@ -31,6 +33,7 @@ namespace CommunityPatch
 
         public object logger;
         public readonly byte minLoggingLevel;
+        public readonly string filename = null;
         public readonly string loggerID;
         public readonly string path = null;
         public readonly string layout = null;
@@ -38,12 +41,13 @@ namespace CommunityPatch
 
         internal string logPath = "";
 
-        internal Logger(string loggerID, TargetConfig config = default, byte defaultLogLevel = (byte)LogLevel.INFO)
+        internal Logger(string loggerID, TargetConfig config = default, byte defaultLogLevel = (byte)LogLevel.ERROR)
         {
             this.loggerID = loggerID;
             this.minLoggingLevel = defaultLogLevel;
 
             // Setup targeting configs
+            this.filename = config.filename;
             this.path = config.path;
             this.layout = config.layout;
             this.keepOldFiles = config.keepOldFiles;
@@ -53,7 +57,6 @@ namespace CommunityPatch
             string[] commandLineArgs = CommandLineReader.GetCommandLineArgs();
             for (int i = 0; i < commandLineArgs.Length; i++)
             {
-                Console.WriteLine($"Checking command line arg {commandLineArgs[i]}");
                 if (commandLineArgs[i] == "+log_level" && i < commandLineArgs.Length - 1)
                 {
                     if (loggingLevelStr == null)
@@ -73,9 +76,16 @@ namespace CommunityPatch
             // Assign the correct level to the logger
             try
             {
-                LogLevel loggingLevel = (LogLevel)Enum.Parse(typeof(LogLevel), loggingLevelStr, true);
-                this.minLoggingLevel = (byte)loggingLevel;
-                Console.WriteLine($"[{loggerID}] Logging {loggingLevel} and up");
+                if (loggingLevelStr != null)
+                {
+                    LogLevel loggingLevel = (LogLevel)Enum.Parse(typeof(LogLevel), loggingLevelStr, true);
+                    this.minLoggingLevel = (byte)loggingLevel;
+                    Console.WriteLine($"[{loggerID}] Logging {loggingLevel} and up");
+                }
+                else
+                {
+                    Console.WriteLine($"[{loggerID}] No log level found. Defaulting to {this.minLoggingLevel}");
+                }
             }
             catch (Exception ex)
             {
