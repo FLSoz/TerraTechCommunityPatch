@@ -28,19 +28,26 @@ namespace CommunityPatch
         internal static FieldInfo m_Mods = typeof(ManMods).GetField("m_Mods", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
         internal static FieldInfo m_CurrentSession = typeof(ManMods).GetField("m_CurrentSession", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
 
+        internal static bool Inited = false;
+
         public void ManagedEarlyInit()
         {
-            int currentBuild = SteamApps.GetAppBuildId();
-            logger.Info("ManagedEarlyInit");
-            logger.Info($"Current Build: {currentBuild}");
-
-            IsUnstableBuild = currentBuild != CurrentStable;
-            OrthoRotPatch.SetupOrthoRotMaps();
-
-            if (logger == null)
+            if (!Inited)
             {
-                logger = new Logger("CommunityPatch");
-                logger.Info("Logger is setup");
+                Inited = true;
+                if (logger == null)
+                {
+                    logger = new Logger("CommunityPatch");
+                    logger.Info("Logger is setup");
+                }
+
+                int currentBuild = SteamApps.GetAppBuildId();
+                IsUnstableBuild = currentBuild != CurrentStable;
+
+                logger.Info("ManagedEarlyInit");
+                logger.Info($"Current Build: {currentBuild}");
+
+                OrthoRotPatch.SetupOrthoRotMaps();
             }
         }
 
@@ -110,6 +117,14 @@ namespace CommunityPatch
         internal void PatchForUnstable()
         {
             // For any unstable-only patches
+            // ManSceneryAnimation fix
+            logger.Info("Patching for unstable");
+            MethodInfo manSceneryAnimationUpdate = AccessTools.Method(typeof(ManSceneryAnimation), "Update");
+            harmony.Patch(
+                manSceneryAnimationUpdate,
+                prefix: new HarmonyMethod(AccessTools.Method(typeof(ManSceneryAnimationPatch), "Prefix")),
+                finalizer: new HarmonyMethod(AccessTools.Method(typeof(ManSceneryAnimationPatch), "Finalizer"))
+            );
         }
     }
 }

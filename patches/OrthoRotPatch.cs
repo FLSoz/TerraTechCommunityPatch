@@ -142,7 +142,7 @@ namespace CommunityPatch.patches
         internal static class PatchVector3Constructor
         {
             [HarmonyPrefix]
-            public static bool Prefix(OrthoRotation __instance, Vector3 eulers)
+            public static bool Prefix(ref OrthoRotation __instance, Vector3 eulers)
             {
                 IntVector3 baseCheck = eulers / 90.0f;
                 int packed = ((3 & baseCheck.x) << 4) | ((3 & baseCheck.y) << 2) | (3 & baseCheck.z);
@@ -157,7 +157,7 @@ namespace CommunityPatch.patches
         internal static class PatchQuaternionConstructor
         {
             [HarmonyPrefix]
-            public static bool Prefix(OrthoRotation __instance, Quaternion rotation)
+            public static bool Prefix(ref OrthoRotation __instance, Quaternion rotation)
             {
                 quaternionMap.TryGetValue(rotation, out OrthoRotation.r rotEnum);
                 __instance = new OrthoRotation(rotEnum);
@@ -170,7 +170,7 @@ namespace CommunityPatch.patches
         internal static class PatchIntConstructor
         {
             [HarmonyPrefix]
-            public static bool Prefix(OrthoRotation __instance, int packed)
+            public static bool Prefix(ref OrthoRotation __instance, int packed)
             {
                 packedMap.TryGetValue(packed, out OrthoRotation.r rotEnum);
                 __instance = new OrthoRotation(rotEnum);
