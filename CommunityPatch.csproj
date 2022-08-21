@@ -78,14 +78,10 @@
     <Compile Include="CommunityPatchMod.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="patches\DeathExplosionDamagePatch.cs" />
-    <Compile Include="patches\DeathExplosionOverridePatch.cs" />
-    <Compile Include="patches\FindCorpPatch.cs" />
     <Compile Include="patches\ManSceneryAnimationPatch.cs" />
-    <Compile Include="patches\ModuleVariableMassPatch.cs" />
     <Compile Include="patches\OrthoRotPatch.cs" />
     <Compile Include="patches\ModSessionPatch.cs" />
     <Compile Include="patches\ReparseJSONPatch.cs" />
-    <Compile Include="patches\SpreadFix.cs" />
     <Compile Include="patches\SubscribedModsPatch.cs" />
     <Compile Include="patches\WhisperProps.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

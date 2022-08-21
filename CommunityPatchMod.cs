@@ -15,7 +15,7 @@ namespace CommunityPatch
 
         internal static Logger logger;
 
-        const int CurrentStable = 9014917;
+        const int CurrentStable = 9274545;
 
         internal static bool PatchedModLoading = false;
         internal static bool IsUnstableBuild = false;
@@ -89,42 +89,17 @@ namespace CommunityPatch
 
         internal void PatchForStable()
         {
-            logger.Info("Patching for stable");
-            // bullet spread fix
-            MethodInfo fire = AccessTools.Method(typeof(Projectile), "Fire");
-            harmony.Patch(fire, postfix: new HarmonyMethod(AccessTools.Method(typeof(SpreadFix), "Postfix")));
+            logger.Info("Nothing to patch for stable");
             // whisper props
-            MethodInfo boosterOnPool = AccessTools.Method(typeof(ModuleBooster), "OnPool");
-            harmony.Patch(boosterOnPool, postfix: new HarmonyMethod(AccessTools.Method(typeof(WhisperProps), "Postfix")));
-            // Death Explosion fix
-            MethodInfo injectModdedBlocks = AccessTools.Method(typeof(ManMods), "InjectModdedBlocks");
-            harmony.Patch(injectModdedBlocks, transpiler: new HarmonyMethod(AccessTools.Method(typeof(DeathExplosionOverridePatch), "Transpiler")));
-            // ManSceneryAnimation fix
-            MethodInfo manSceneryAnimationUpdate = AccessTools.Method(typeof(ManSceneryAnimation), "Update");
-            harmony.Patch(
-                manSceneryAnimationUpdate,
-                prefix: new HarmonyMethod(AccessTools.Method(typeof(ManSceneryAnimationPatch), "Prefix")),
-                finalizer: new HarmonyMethod(AccessTools.Method(typeof(ManSceneryAnimationPatch), "Finalizer"))
-            );
-            // ModuleVariableMass patch
-            MethodInfo setMassCubeScale = AccessTools.Method(typeof(ModuleVariableMass), "SetMassCubeScale");
-            harmony.Patch(setMassCubeScale, postfix: new HarmonyMethod(AccessTools.Method(typeof(ModuleVariableMassPatch), "Postfix")));
-            // Find Corp fix
-            MethodInfo findCorp = AccessTools.Method(typeof(ManMods), "FindCorp", new Type[] { typeof(string) });
-            harmony.Patch(findCorp, prefix: new HarmonyMethod(AccessTools.Method(typeof(FindCorpPatch), "Prefix")));
+            // MethodInfo boosterOnPool = AccessTools.Method(typeof(ModuleBooster), "OnPool");
+            // harmony.Patch(boosterOnPool, postfix: new HarmonyMethod(AccessTools.Method(typeof(WhisperProps), "Postfix")));
         }
 
         internal void PatchForUnstable()
         {
             // For any unstable-only patches
             // ManSceneryAnimation fix
-            logger.Info("Patching for unstable");
-            MethodInfo manSceneryAnimationUpdate = AccessTools.Method(typeof(ManSceneryAnimation), "Update");
-            harmony.Patch(
-                manSceneryAnimationUpdate,
-                prefix: new HarmonyMethod(AccessTools.Method(typeof(ManSceneryAnimationPatch), "Prefix")),
-                finalizer: new HarmonyMethod(AccessTools.Method(typeof(ManSceneryAnimationPatch), "Finalizer"))
-            );
+            logger.Info("Nothing to patch for unstable");
         }
     }
 }
