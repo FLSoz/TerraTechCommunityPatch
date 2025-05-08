@@ -48,6 +48,7 @@ namespace CommunityPatch
                 logger.Info($"Current Build: {currentBuild}");
 
                 OrthoRotPatch.SetupOrthoRotMaps();
+                PatchMPAllowedModules.SetupModuleSet();
             }
         }
 
@@ -72,6 +73,7 @@ namespace CommunityPatch
 
         public override void DeInit()
         {
+            PatchMPAllowedModules.PurgeMetadata();
             harmony.UnpatchAll(HarmonyID);
         }
 

@@ -35,12 +35,12 @@
       <HintPath>..\..\..\Steam\steamapps\common\TerraTech\TerraTechWin64_Data\Managed\0Harmony.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="3rdParty">
+      <HintPath>..\..\..\Steam\steamapps\common\TerraTech\TerraTechWin64_Data\Managed\3rdParty.dll</HintPath>
+    </Reference>
     <Reference Include="Assembly-CSharp">
       <HintPath>..\..\..\Steam\steamapps\common\TerraTech\TerraTechWin64_Data\Managed\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
-    </Reference>
-    <Reference Include="Assembly-CSharp-firstpass">
-      <HintPath>..\..\..\Steam\steamapps\common\TerraTech\TerraTechWin64_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
     </Reference>
     <Reference Include="DebugWrapper">
       <HintPath>..\..\..\Steam\steamapps\common\TerraTech\TerraTechWin64_Data\Managed\DebugWrapper.dll</HintPath>
@@ -78,9 +78,13 @@
     <Compile Include="CommunityPatchMod.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="patches\DeathExplosionDamagePatch.cs" />
+    <Compile Include="patches\EnhancedBlockInfoDisplay.cs" />
     <Compile Include="patches\ManSceneryAnimationPatch.cs" />
+    <Compile Include="patches\ModuleRadarPatch.cs" />
     <Compile Include="patches\OrthoRotPatch.cs" />
     <Compile Include="patches\ModSessionPatch.cs" />
+    <Compile Include="patches\PatchMaterialSwapperCrash.cs" />
+    <Compile Include="patches\PatchMPAllowedModules.cs" />
     <Compile Include="patches\ReparseJSONPatch.cs" />
     <Compile Include="patches\SubscribedModsPatch.cs" />
     <Compile Include="patches\WhisperProps.cs" />

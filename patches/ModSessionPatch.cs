@@ -49,6 +49,7 @@ namespace CommunityPatch.patches
                 Dictionary<int, string> currentBlockIDs = currentSession.BlockIDs;
                 Dictionary<int, string> targetBlockIDs = session.BlockIDs;
                 DeepCopy(currentBlockIDs, targetBlockIDs);
+                DeepCopy(currentSession.SkinIDsByCorp, session.SkinIDsByCorp);
             }
         }
     }
